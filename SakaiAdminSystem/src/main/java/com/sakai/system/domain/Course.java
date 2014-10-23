@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 @Entity
 public class Course {
@@ -16,14 +18,22 @@ public class Course {
 	
 	@Id @GeneratedValue
 	private long id;
-	@NotNull
+	@NotEmpty
 	private String title;
-	
+	@NotEmpty
 	private String description;
 	
-	@NotNull
+	@NotEmpty
 	private String subjectCode;
 	
+	
+	private String category;
+	
+
+	private String subcategory;
+	
+	
+
 	@OneToMany(mappedBy="course")
 	private List<Section> sections = new ArrayList<Section>();
 	
@@ -80,6 +90,21 @@ public class Course {
 		this.sections = sections;
 	}
 	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getSubcategory() {
+		return subcategory;
+	}
+
+	public void setSubcategory(String subcategory) {
+		this.subcategory = subcategory;
+	}
 	
 
 }

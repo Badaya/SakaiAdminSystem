@@ -1,11 +1,20 @@
 package com.sakai.system.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,9 +22,16 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+
+
+
 
 import com.sakai.system.domain.Block;
 import com.sakai.system.domain.Course;
@@ -54,7 +70,7 @@ public class AdminController {
 	
 	
 	@RequestMapping(value = "/")
-	public String home() {
+	public String home(HttpServletRequest request) {
 
 		return "admin/admin_home";
 	}
@@ -75,7 +91,10 @@ public class AdminController {
 	
 	// create a course
 		@RequestMapping(value = "/courses/add", method = RequestMethod.POST)
-		public String createCourse(Course course) {
+		public String createCourse(@Valid Course course,BindingResult result) {
+			if(result.hasErrors()){
+				return "admin/addcourse";
+			}
 			courseService.create(course);
 			return "redirect:./";
 		}
@@ -88,6 +107,39 @@ public class AdminController {
 			return "admin/addcourse";
 		}
 		
+		// ajax and rest
+		
+		@RequestMapping(value = "/ajaxRequest", method = RequestMethod.POST)
+		 public @ResponseBody String[] hello(@RequestBody HttpServletRequest request) {
+			String category = request.getParameter("category");						
+
+		  
+		  if(category.equals("vedic science")){
+			  System.out.println("I came here...");
+			 
+			  String str[] = {"Course1","Course2","Course3","Course4"};
+			  return str;
+		  
+		  }
+		  if(category.equals("Compro")){
+			 
+			  String str[] = {"Compro1","Compro2","Copmro3","Compro3"};
+			  return str;
+		  }
+		  
+		  if(category.equals("MBA")){
+				 
+			  String str[] = {"MBA1","MBA2","MBA3","MBA4"};
+			  return str;
+		  }
+		return null;
+		  
+		  
+
+		 }
+		
+		
+		
 		//get a list of course
 		@RequestMapping(value = "/courses", method = RequestMethod.GET)
 		public String getCourseDetails( Model model,HttpServletRequest request) {
@@ -99,7 +151,10 @@ public class AdminController {
 		
 		// update a course
 		@RequestMapping(value = "/courses/{id}", method = RequestMethod.POST)
-		public String updateCourse(Course course, @PathVariable int id) {
+		public String updateCourse(@Valid Course course, @PathVariable int id,BindingResult result) {
+			if(result.hasErrors()){
+				return "admin/courseupdate";
+			}
 			courseService.update(id, course);
 			return "redirect:/admin/courses";
 		}
@@ -118,12 +173,7 @@ public class AdminController {
 //////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	
-	// Create Faculty
-		@RequestMapping(value = "/faculties/add", method = RequestMethod.POST)
-		public String createFaculty(@ModelAttribute Teacher teacher) {
-			teacherService.create(teacher);
-			return "redirect:./";
-		}
+	
 
 		//add faculty
 		@RequestMapping(value = "/faculties/add", method = RequestMethod.GET)
@@ -135,15 +185,64 @@ public class AdminController {
 		// Get Faculty Details
 		@RequestMapping(value = "/faculties/", method = RequestMethod.GET)
 		public String getFacultyDetails( Model model) {
-			model.addAttribute("faculties",teacherService.findAll());
+			List<Teacher> faculties = teacherService.findAll();
+			model.addAttribute("faculties",faculties);
 			return "admin/admin_facultylist";
 		}
+		
+		
+		@RequestMapping(value = "/faculties/add", method = RequestMethod.POST)
+		public String createorUpdateProducts(Model model,
+				@RequestParam("file") MultipartFile file,
+				@Valid @ModelAttribute Teacher teacher,
+				BindingResult result,HttpServletRequest request) {
+			
+			if(result.hasErrors()){
+				return "admin/admin_addfaculty";
+			}
+			
+			try {
+				//Resource resouce = ResourceLoader
+				String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+				if(file!=null && !file.isEmpty()){
+					teacher=teacherService.create(teacher);
+					String imageLocation =  rootDirectory+"resources\\image\\"+teacher.getId()+".png";
+					file.transferTo(new File(imageLocation));
+					teacher.setImageLocation(imageLocation);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			teacherService.create(teacher);
+			
+			
+			
+			return "redirect:./";
+		}
+		@RequestMapping(value="/image/")
+		public void getImage(@RequestParam("image") String imageLocation,HttpServletResponse response){
+			try{
+				File imageFile= new File(imageLocation);
+				if(imageFile!=null){
+					OutputStream out = response.getOutputStream();
+					out.write(Files.readAllBytes(Paths.get(imageLocation)));
+					response.flushBuffer();
+				}
+			}catch(IOException ex){
+				
+			}
+		}
+		
+		
 	
 ///////////////////////////////////////////////////////////////////////////////////////////	
 	
 	// create block
 		@RequestMapping(value = "/block/add", method = RequestMethod.POST)
-		public String createBlock(@ModelAttribute Block block,BindingResult result) {
+		public String createBlock(@Valid @ModelAttribute Block block,BindingResult result) {
+			if(result.hasErrors()){
+				return "admin/addBlock";
+			}
 			blockService.create(block);
 			System.out.println("hello");
 			return "redirect:./";
@@ -167,7 +266,12 @@ public class AdminController {
 		
 		//create student
 		@RequestMapping(value = "/student/add", method = RequestMethod.POST)
-		public String createStudent(@ModelAttribute Student  student) {
+		public String createStudent(@Valid @ModelAttribute Student  student,BindingResult result) {
+			
+			if(result.hasErrors()){
+				return "admin/admin_addstudent";
+			}
+			
 			studentService.create(student);
 			System.out.println("hello");
 			return "redirect:./";
@@ -192,7 +296,10 @@ public class AdminController {
 		
 		// create section
 	@RequestMapping(value = "/section/add", method = RequestMethod.POST)
-	public String createSection(@ModelAttribute Section section,BindingResult result) {
+	public String createSection(@Valid @ModelAttribute Section section,BindingResult result) {
+		if(result.hasErrors()){
+			return "admin/addsection";
+		}
 		courseSectionService.create(section);
 		return "redirect:./?block_id="+section.getBlock().getBlockId();
 	}

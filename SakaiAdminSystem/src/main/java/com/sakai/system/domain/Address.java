@@ -3,17 +3,20 @@ package com.sakai.system.domain;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Embeddable
 public class Address {
     
-	
-	@Size(min=1)
+	@NotEmpty
 	private String street;
-	@Size(min=1)
+	
+	
+    @NotEmpty
 	private String state;
-	@Size(min=1)
+	@NotEmpty
 	private String city;
-	@Size(min=1)
+	@NotEmpty
 	private String zip;
 	
 	public Address(){ }

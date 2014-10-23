@@ -14,13 +14,17 @@
 <body>
 	<div class="navbar navbar-inverse navbar-default" role="navigation">
 		<div class="container">
+		  <jsp:include page="menu.jsp">
+				<jsp:param value="a" name="a" />
+			</jsp:include>
+			<div class="panel panel-primary margin_top_20">
 			<a class="navbar-brand" href="<c:url value=" /index.jsp"/>">Home</a>
-			<label class="navbar-brand"><strong>Adding Faculty</strong></label>
+			<label class="navbar-brand"><strong>Adding Faculty</strong></label></div>
 		</div>
 	</div>
 	<div class="container">
 		<form:form class="form-horizontal" role="form" commandName="teacher"
-			action="./add" method="post">
+			action="./add" method="post" enctype="multipart/form-data">
 
 			<div class="form-group">
 				<label for="username" class="col-sm-2 control-label">User
@@ -125,6 +129,13 @@
 				</div>
 			</div>
 			
+			
+			<div class="form-group">
+						<label class="col-sm-2 control-label">Image:</label>
+						<div class="col-sm-7">
+							<input type="file" name="file" id="file" />
+						</div>
+					</div>
 			
 			
 

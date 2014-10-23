@@ -17,8 +17,11 @@
 	
 	
 	
-	<br></br>
-	<br></br>
+	<div class="container">
+	<jsp:include page="menu.jsp">
+				<jsp:param value="a" name="a" />
+			</jsp:include>
+			<div class="panel panel-primary margin_top_20"></div>
 	<div class="panel panel-primary">
 		<div class="panel-heading">Total Registered Students</div>
 		<div class="panel-body">
@@ -51,6 +54,7 @@
 		<button type="button" class="btn btn-success">Add Student</button>
 	</a>
 		</div>
+	</div>
 	</div>
 
 </body>

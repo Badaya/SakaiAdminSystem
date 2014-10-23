@@ -15,7 +15,9 @@ public class Student extends Person {
 	private List<Section> sections= new ArrayList<Section>();
 
 	@ManyToOne
-	private Teacher advisor;	
+	private Teacher advisor;
+	
+	
 	private int rollNum;
 	
 	public Student() {

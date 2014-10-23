@@ -14,10 +14,13 @@
 <title>Welcome to Administration</title>
 </head>
 <body>
-	<br>
-	<br>
-	<br>
-	<br>
+	
+	
+	   <div class="container">
+	<jsp:include page="menu.jsp">
+				<jsp:param value="a" name="a" />
+			</jsp:include>
+			<div class="panel panel-primary margin_top_20"></div>
 	
 	<div class="panel panel-primary">
 		<div class="panel-heading">List of Courses Available</div>
@@ -47,10 +50,11 @@
 
 				</c:forEach>
 			</table>
-			<a href="courses/add">
+			<a href="./add">
 				<button type="button" class="btn btn-success">Add Course</button>
 			</a>
 		</div>
+	</div>
 	</div>
 
 </body>

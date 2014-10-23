@@ -17,8 +17,11 @@
 	
 	
 	
-	<br></br>
-	<br></br>
+	<div class="container">
+	<jsp:include page="menu.jsp">
+				<jsp:param value="a" name="a" />
+			</jsp:include>
+			<div class="panel panel-primary margin_top_20"></div>
 	<div class="panel panel-primary">
 		<div class="panel-heading">Registered Faculties</div>
 		<div class="panel-body">
@@ -27,6 +30,7 @@
 					<tr>
 						<td>Faculty ID</td>
 						<td>Faculty Name</td>
+						<td>Image</td>
 					</tr>
 				</thead>
 				<c:forEach var="faculty" items="${faculties}">
@@ -35,6 +39,7 @@
 							
 							<td>${faculty.id}&nbsp;</td>
 							<td>${faculty.name}&nbsp;</td>
+							<td><img src="../image/?image=${faculty.imageLocation}">
 							<td><a href="./${faculty.id}">View Details</a></td>
 						</tr>
 					</tbody>
@@ -46,6 +51,6 @@
 		</a>
 		</div>
 	</div>
-
+</div>
 	
 </body>

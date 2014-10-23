@@ -17,8 +17,11 @@
 	
 	
 	
-	<br></br>
-	<br></br>
+	<div class="container">
+	<jsp:include page="menu.jsp">
+				<jsp:param value="a" name="a" />
+			</jsp:include>
+			<div class="panel panel-primary margin_top_20"></div>
 	<div class="panel panel-primary">
 		<div class="panel-heading">Registered Faculties</div>
 		<div class="panel-body">
@@ -53,7 +56,7 @@
 		</a>
 		</div>
 	</div>
-
+</div>
 	
 </body>
 </html>

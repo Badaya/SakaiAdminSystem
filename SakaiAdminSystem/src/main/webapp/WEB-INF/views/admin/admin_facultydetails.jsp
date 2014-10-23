@@ -18,6 +18,10 @@
 	<br>
 	<br>
 	<div class="container">
+	<jsp:include page="menu.jsp">
+				<jsp:param value="a" name="a" />
+			</jsp:include>
+			<div class="panel panel-primary margin_top_20"></div>
 	<form:form class="form-horizontal" role="form" commandName="faculty"
 			action="../faculties/${faculty.id}" method="post">
 

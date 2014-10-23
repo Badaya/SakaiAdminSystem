@@ -3,14 +3,17 @@ package com.sakai.system.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class UserCredentials {
 	
 	@Id
 	private String username;
-	@NotNull
+	@NotEmpty
+	@Size(min=3,message="min lenght error")
 	private String password;	
 	@Column(nullable=true)
 	private String role;

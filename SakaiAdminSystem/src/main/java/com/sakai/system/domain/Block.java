@@ -11,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -21,8 +23,10 @@ public class Block {
 	@GeneratedValue
 	private long blockId;
 	
+	@NotEmpty
 	private String title;
 	
+	@NotEmpty
 	private String description;
 	
 	@Temporal(TemporalType.DATE)

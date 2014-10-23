@@ -14,8 +14,12 @@
 <body>
 	<div class="navbar navbar-inverse navbar-default" role="navigation">
 		<div class="container">
+		    <jsp:include page="menu.jsp">
+				<jsp:param value="a" name="a" />
+			</jsp:include>
+			<div class="panel panel-primary margin_top_20">
 			<a class="navbar-brand" href="<c:url value=" /index.jsp"/>">Home</a>
-			<label class="navbar-brand"><strong>Adding Section</strong></label>
+			<label class="navbar-brand"><strong>Adding Section</strong></label></div>
 		</div>
 	</div>
 	<div class="container">

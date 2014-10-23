@@ -15,6 +15,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
@@ -22,25 +23,27 @@ public abstract class Person {
 	
    @Id
    @GeneratedValue(strategy= GenerationType.TABLE)
-   private long id;
+   protected long id;
    
-   @NotNull
-   private String name;
+   @NotEmpty
+   protected String name;
    
    @Size(min=10,max=20)
-   private String phone;
+   protected String phone;
    
+   @NotEmpty
    @Email(message="please pass a valid email addess")
-   private String email;
+   protected String email;
    
    @Embedded
-   private Address address;
+   @NotNull
+   protected Address address;
    
    @NotNull
    @OneToOne
    @Cascade(CascadeType.ALL)
    @JoinColumn(name="username")
-   private UserCredentials  user;
+   protected UserCredentials  user;
    
    public Person(){}
 

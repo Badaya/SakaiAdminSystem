@@ -16,6 +16,11 @@
 <body>
 	<h1>List of Registered Section</h1>
 	
+	<div class="container">
+	<jsp:include page="menu.jsp">
+				<jsp:param value="a" name="a" />
+			</jsp:include>
+	
 	<div class="panel panel-primary margin_top_20">
 			<div class="panel-heading">Sections list in
 				Block:${block.title}</div>
@@ -47,5 +52,6 @@
 			<button type="button" class="btn btn-success">Add Section</button>
 		</a>
 		</div>
+	</div>
 	</div>
 </body>

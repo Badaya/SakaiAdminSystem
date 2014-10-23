@@ -19,6 +19,25 @@ public class Teacher extends Person {
 	@OneToMany(mappedBy="advisor")
 	private List<Student> listStudent = new ArrayList<Student>();
 
+	private String imageLocation;
+	
+	
+	public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
+	}
+
+	public String getImageLocation() {
+		return imageLocation;
+	}
+
+	public void setImageLocation(String imageLocation) {
+		this.imageLocation = imageLocation;
+	}
+
 	public Teacher() {
 		super();
 		// TODO Auto-generated constructor stub

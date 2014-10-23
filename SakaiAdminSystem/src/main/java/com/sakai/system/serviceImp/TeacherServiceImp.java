@@ -24,8 +24,8 @@ public class TeacherServiceImp implements TeacherService {
 	@Override
 	public Teacher create(Teacher teacher) {
 		// TODO Auto-generated method stub
-		teacherRepository.save(teacher);
-		return teacher;
+		Teacher teach =teacherRepository.save(teacher);
+		return teach;
 	}
 
 	@Override

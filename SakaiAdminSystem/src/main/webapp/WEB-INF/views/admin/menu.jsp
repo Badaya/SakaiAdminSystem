@@ -3,22 +3,6 @@
 	prefix="sec"%>
 <div class="masthead">
 	<h3 class="text-muted margin_top_10">
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="argonne_logo_img">
-					<a href="<c:url value="/admin/home" />"><img
-						src="<c:url value="/resources/images/yoga-studio-logo.jpg" />"
-						class="img-responsive" alt="logo" /></a>
-				</div>
-				<div class="argonne_logo_txt"></div>
-			</div>
-			<div class="col-lg-5"></div>
-			<div class="col-lg-3">
-				<div class="need_help">
-					Need Help?<br>Call extension 2-5373
-				</div>
-			</div>
-		</div>
 	</h3>
 
 	<div class="navbar navbar-default" role="navigation">
@@ -33,10 +17,10 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li class="dropdown"><a href="<c:url value="/admin/" />">HOME</a></li>
-				<li class="dropdown"><a href="<c:url value="/admin/semester/" />">Semester</a></li>
-				<li class="dropdown"><a href="<c:url value="/admin/course/" />">Course</a></li>
-				<li class="dropdown"><a href="<c:url value="/admin/faculty/" />">Faculty</a></li>
-				<li class="dropdown"><a href="<c:url value="/admin/category/" />">Product Category</a></li>
+				<li class="dropdown"><a href="<c:url value="/admin/block/" />">Block</a></li>
+				<li class="dropdown"><a href="<c:url value="/admin/courses/" />">Course</a></li>
+				<li class="dropdown"><a href="<c:url value="/admin/faculties/" />">Faculty</a></li>
+				<li class="dropdown"><a href="<c:url value="/admin/student/" />">Student</a></li>
 				
 			</ul>
 

@@ -7,7 +7,13 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="shortcut icon" href="<c:url value="/resources/images/favicon.ico" />">
-
+<style>
+.error {
+    color: #ff0000;
+    font-style: italic;
+    font-weight: bold;
+}
+</style>
 <!-- Bootstrap core CSS -->
 <link href="<c:url value="/resources/css/bootstrap.css" />"
 	rel="stylesheet">
